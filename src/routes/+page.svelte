@@ -49,7 +49,7 @@
 
 	function hookSeeMore() {
 		// attach click handlers after DOM ready
-		const btn = document.querySelector('.see-more');
+		const btn = document.querySelector('.discover');
 		if (btn)
 			btn.addEventListener('click', (e) => {
 				const t = (e.currentTarget as HTMLElement).getAttribute('data-target');
@@ -78,7 +78,7 @@
 				</p>
 
 				<div class="hero-cta">
-					<button class="discover" data-target="#work">
+					<button class="discover" data-target="#about">
 						<div class="tab">/</div>
 						<div class="label">Discover more ↓</div>
 					</button>
@@ -107,7 +107,7 @@
 						<Tooltip tip="TypeScript, SvelteKit, Go, Postgres, and more.">
 							<span class="about-chip">full stack developer</span>
 						</Tooltip>{' '}
-						anchored in the UK. Most days I'm deep in{' '}
+						currently living in the UK. Most days I'm deep in{' '}
 						<Tooltip tip="From enterprise racks to homelab clusters.">
 							<span class="about-chip">network infrastructure</span>
 						</Tooltip>{' '}

@@ -148,6 +148,18 @@
 </script>
 
 <svelte:head>
+	<title>jay.ax</title>
+	<link rel="canonical" href="https://jay.ax/" />
+	<meta name="description" content="tragically unfinished website" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="jay.ax" />
+	<meta property="og:title" content="jay.ax" />
+	<meta property="og:description" content="tragically unfinished website" />
+	<meta property="og:url" content="https://jay.ax/" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="jay.ax" />
+	<meta name="twitter:description" content="tragically unfinished website" />
+	<meta name="theme-color" content="#13182a" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 	<link
@@ -201,7 +213,7 @@
 	<div class="dev-modal-backdrop" role="presentation">
 		<div class="dev-modal" role="dialog" aria-modal="true" aria-labelledby="dev-modal-title">
 			<h2 id="dev-modal-title">Site in development</h2>
-			<p>This project is still being polished. Some areas may be unfinished or change without notice.</p>
+			<p>This project is still being polished. Most areas are unfinished and will change without notice. Do not open on mobile.</p>
 			<button type="button" class="dev-modal-button" on:click={acceptDevNotice}>
 				I understand
 			</button>
