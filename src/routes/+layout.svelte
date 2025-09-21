@@ -2,6 +2,11 @@
 	import '../app.css';
 	import { onMount, onDestroy } from 'svelte';
 	let CursorComponent: typeof import('$lib/Cursor.svelte').default | null = null;
+	let showDevNotice = true;
+
+	function acceptDevNotice() {
+		showDevNotice = false;
+	}
 	onMount(async () => {
 		const m = await import('$lib/Cursor.svelte');
 		CursorComponent = m.default;
@@ -192,13 +197,86 @@
 		</div>
 </header>
 
+{#if showDevNotice}
+	<div class="dev-modal-backdrop" role="presentation">
+		<div class="dev-modal" role="dialog" aria-modal="true" aria-labelledby="dev-modal-title">
+			<h2 id="dev-modal-title">Site in development</h2>
+			<p>This project is still being polished. Some areas may be unfinished or change without notice.</p>
+			<button type="button" class="dev-modal-button" on:click={acceptDevNotice}>
+				I understand
+			</button>
+		</div>
+	</div>
+{/if}
+
 <main class="p-6">
 	<slot />
 </main>
 
-<footer class="border-t border-gray-200 p-4 text-center text-sm text-gray-500">
+<footer class="site-footer border-t p-4 text-center text-sm">
 	© {new Date().getFullYear()} Jay. Built with frowns.
 </footer>
+
+<style>
+	.dev-modal-backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1.5rem;
+		background: rgba(0, 0, 0, 0.7);
+		z-index: 1200;
+	}
+
+	.dev-modal {
+		max-width: 26rem;
+		width: min(100%, 26rem);
+		padding: 2rem;
+		border-radius: 1rem;
+		background: var(--modal-surface, rgba(12, 12, 12, 0.92));
+		color: var(--modal-text, #f7f7f7);
+		box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35);
+		text-align: center;
+	}
+
+	.dev-modal h2 {
+		margin-bottom: 0.75rem;
+		font-size: 1.4rem;
+	}
+
+	.dev-modal p {
+		margin-bottom: 1.5rem;
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+
+	.dev-modal-button {
+		padding: 0.65rem 1.5rem;
+		border-radius: 999px;
+		border: none;
+		font-weight: 600;
+		cursor: pointer;
+		background: var(--accent, #4f46e5);
+		color: #ffffff;
+		transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+	}
+
+	.dev-modal-button:hover,
+	.dev-modal-button:focus-visible {
+		transform: translateY(-1px);
+		box-shadow: 0 0.75rem 1.5rem rgba(79, 70, 229, 0.45);
+		outline: none;
+	}
+
+	.dev-modal-button:active {
+		transform: translateY(0);
+		box-shadow: none;
+	}
+</style>
 
 {#if CursorComponent}
 	<svelte:component this={CursorComponent} />

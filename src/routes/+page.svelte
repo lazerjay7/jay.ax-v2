@@ -2,9 +2,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import DiscordStatus from '$lib/DiscordStatus.svelte';
+	import Tooltip from '$lib/Tooltip.svelte';
 
 	// NOTE: showing a fixed "owner" timezone rather than the visitor's local time.
 	const OWNER_TIMEZONE = 'Europe/London';
+	const BIRTHDATE = new Date('2007-04-27T00:00:00Z');
+	const MS_IN_YEAR = 31_536_000_000;
 
 	const timeFmt = new Intl.DateTimeFormat('en-US', {
 		hour: 'numeric',
@@ -15,7 +18,16 @@
 	});
 
 	let time = timeFmt.format(new Date());
-	let interval: number;
+	let timeTicker: number;
+	let age = computeAge();
+	let ageTicker: number;
+
+	function computeAge() {
+		return (Date.now() - BIRTHDATE.getTime()) / MS_IN_YEAR;
+	}
+
+	$: wholeYears = Math.floor(age);
+	$: preciseAge = age.toFixed(9);
 
 	function tick() {
 		const now = new Date();
@@ -23,9 +35,16 @@
 	}
 
 	onMount(() => {
-		interval = window.setInterval(tick, 1000);
+		timeTicker = window.setInterval(tick, 1000);
+		ageTicker = window.setInterval(() => {
+			age = computeAge();
+		}, 1000);
+		age = computeAge();
 		tick();
-		return () => clearInterval(interval);
+		return () => {
+			if (timeTicker) window.clearInterval(timeTicker);
+			if (ageTicker) window.clearInterval(ageTicker);
+		};
 	});
 
 	function hookSeeMore() {
@@ -55,7 +74,7 @@
 					<h1 class="inline text-6xl font-bold">jay</h1>
 				</div>
 				<p class="hero-tagline">
-					insert text here but it has to be short because thats how its styled
+					Full stack developer and car enthusiast. 
 				</p>
 
 				<div class="hero-cta">
@@ -70,41 +89,55 @@
 				</div>
 			</div>
 			<div class="hero-right">
-				<div class="avatar">
+				<div class="avatar" aria-hidden="true">
 					<!-- placeholder avatar image: replace with your image -->
-					<div
-						style="width:100%;height:100%;background:linear-gradient(135deg,#e2dcd6,#cfc9c3);"
-					></div>
 				</div>
 				<div class="about-card">
-					<h3>About me</h3>
-					<p>
-						this one will be longer er than the one over there because this one will be more
-						detailed with hover reactive shit
+					<p class="about-card-label">About Me</p>
+					<p class="about-card-body">
+						Hey there, I'm{' '}
+						<Tooltip tip="Taylor works too, but Jay is how I'm known online.">
+							<span class="about-chip">Jay</span>
+						</Tooltip>{' '}
+						— an{' '}
+						<Tooltip tip={`precisely ${preciseAge} years old`}>
+							<span class="about-chip">{wholeYears}</span>
+						</Tooltip>{' '}
+						year-old{' '}
+						<Tooltip tip="TypeScript, SvelteKit, Go, Postgres, and more.">
+							<span class="about-chip">full stack developer</span>
+						</Tooltip>{' '}
+						anchored in the UK. Most days I'm deep in{' '}
+						<Tooltip tip="From enterprise racks to homelab clusters.">
+							<span class="about-chip">network infrastructure</span>
+						</Tooltip>{' '}
+						and building fast, resilient experiences for the web. When I'm not coding,
+						I like to tinker with cars, too. I have a passion for older cars from the late 80s to mid 2000s.
 					</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 </section>
 
 <section id="about" class="py-16">
 	<div class="card mx-auto max-w-3xl">
-		<h2 class="mb-4 text-3xl font-semibold">About</h2>
-		<p class="mb-6 text-gray-300">glazebox goes here maybe? and some other about shite</p>
+		<h2 class="mb-4 text-3xl font-semibold">about the site</h2>
+		<p class="mb-6 text-gray-300">This section is a placeholder for now.</p>
+		<p class="mb-6 text-gray-500">Inspiration behind this site came from afn.im, I encourage you to check it out! I know it looks very similar right now but there are some big changes I have planned, especially down here. I have written the codebase --mostly-- from scratch with a little help from the open source community, chatbox gpt :(, and some basic googling.</p>
 	</div>
 </section>
 
 <section id="work" class="py-16">
 	<div class="card mx-auto max-w-3xl">
-		<h2 class="mb-4 text-3xl font-semibold">Work</h2>
+		<h2 class="mb-4 text-3xl font-semibold">???</h2>
 		<p class="mb-6 text-gray-300">github? or maybe a blog..</p>
 	</div>
 </section>
 
 <section id="contact" class="py-16">
 	<div class="card mx-auto max-w-3xl">
-		<h2 class="mb-4 text-3xl font-semibold">Contact</h2>
-		<p class="mb-6 text-gray-300">Email: hello@jay.ax</p>
+		<h2 class="mb-4 text-3xl font-semibold">"Contact"</h2>
+		<p class="mb-6 text-gray-300">Email: jay@lazerjay.dev, Discord: lazerjay7</p>
 	</div>
 </section>

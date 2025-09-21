@@ -152,7 +152,7 @@
 		gap: 22px;
 		align-items: center;
 		font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-		color: #5c4335;
+		color: color-mix(in srgb, var(--text) 78%, transparent);
 		padding: 0;
 		border: none;
 		background: none;
@@ -164,8 +164,13 @@
 		height: 96px;
 		border-radius: 26px;
 		overflow: hidden;
-		box-shadow: 0 10px 28px rgba(30, 41, 59, 0.22);
-		background: linear-gradient(135deg, rgba(148, 163, 184, 0.25), rgba(148, 163, 184, 0.08));
+		box-shadow: 0 10px 28px color-mix(in srgb, rgba(8, 12, 24, 0.6) 70%, transparent);
+		background: linear-gradient(
+			135deg,
+			color-mix(in srgb, var(--surface) 82%, rgba(255, 255, 255, 0.1)),
+			color-mix(in srgb, var(--surface) 60%, rgba(0, 0, 0, 0.12))
+		);
+		border: 1px solid color-mix(in srgb, var(--muted) 26%, transparent);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -181,7 +186,7 @@
 		width: 60%;
 		height: 60%;
 		border-radius: 24px;
-		background: rgba(2, 6, 23, 0.12);
+		background: color-mix(in srgb, var(--muted) 18%, transparent);
 	}
 	.details {
 		display: flex;
@@ -194,23 +199,23 @@
 		font-size: 22px;
 		font-weight: 700;
 		letter-spacing: 0.03em;
-		color: #44271c;
+		color: color-mix(in srgb, var(--text) 92%, transparent);
 	}
 	.line {
 		font-size: 16px;
 		letter-spacing: 0.01em;
-		color: rgba(92, 67, 53, 0.82);
+		color: color-mix(in srgb, var(--text) 74%, transparent);
 		line-height: 1.38;
 	}
 	.line.activity {
-		color: rgba(92, 67, 53, 0.75);
+		color: color-mix(in srgb, var(--text) 68%, transparent);
 		max-width: 280px;
 		word-break: break-word;
 	}
 	.clock {
 		font-size: 0.95rem;
 		font-variant-numeric: tabular-nums;
-		color: rgba(76, 56, 44, 0.7);
+		color: color-mix(in srgb, var(--muted) 66%, transparent);
 		text-transform: uppercase;
 		letter-spacing: 0.12em;
 	}
